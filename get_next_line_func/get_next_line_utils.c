@@ -1,16 +1,26 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    get_next_line_utils.с                              :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ckakuna <ck@ck.fr>                         +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/05/10 14:39:27 by ckakuna           #+#    #+#              #
-#    Updated: 2020/05/10 14:39:27 by ckakuna          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ckakuna <ck@ck.fr>                         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/11 08:49:19 by ckakuna           #+#    #+#             */
+/*   Updated: 2020/05/11 08:49:19 by ckakuna          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "get_next_line.h"
+
+size_t	ft_strlen(const char *str)
+{
+	size_t i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -35,4 +45,61 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (array);
 	}
 	return (NULL);
+}
+
+char	*ft_strnew(size_t size)
+{
+	char	*array;
+	size_t	i;
+
+	if (!(array = (char *)malloc(sizeof(char) * size)))
+		return (NULL);
+	i = 0;
+	while (i < size)
+	{
+		array[i] = 0;
+		i++;
+	}
+	return (array);
+}
+
+char	*ft_strchr(const char *str, int ch)
+{
+	int		i;
+	char	c;
+	char	*s;
+
+	i = 0;
+	c = (char)ch;
+	s = (char *)str;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (s + i);
+		i++;
+	}
+	if (s[i] == '\0' && c == '\0')
+		return (s + i);
+	return (NULL);
+}
+
+char	*ft_strdup(const char *str)
+{
+	char	*arr;
+	int		i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	arr = (char *)malloc(sizeof(char) * (i + 1));
+	if (arr == NULL)
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		arr[i] = str[i];
+		i++;
+	}
+	arr[i] = '\0';
+	return (arr);
 }
