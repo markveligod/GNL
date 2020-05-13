@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ckakuna <ck@ck.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 21:09:38 by student           #+#    #+#             */
-/*   Updated: 2020/05/13 08:01:48 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/05/13 07:50:09 by ckakuna          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 t_list	*check_fd(t_list *list, int fd)
 {
@@ -62,7 +62,8 @@ int		get_base_line(char **line, t_list *temp_list, t_list **static_list)
 		}
 		free(temp_list->content);
 		free(temp_list);
-		return (tmp_static == temp_list ? (int)(*static_list = NULL) : 0);
+		*static_list = (tmp_static == temp_list) ? NULL : tmp_static;
+		return (0);
 	}
 	len = (int)(ft_strchr(temp_list->content, '\n') - temp_list->content);
 	*line = ft_substr(temp_list->content, 0, len);
