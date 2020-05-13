@@ -6,7 +6,7 @@
 /*   By: ckakuna <ck@ck.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 21:09:38 by student           #+#    #+#             */
-/*   Updated: 2020/05/13 07:50:09 by ckakuna          ###   ########.fr       */
+/*   Updated: 2020/05/13 14:32:32 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_list	*check_fd(t_list *list, int fd)
 	return (NULL);
 }
 
-t_list	*ft_lstadd_back(t_list **lst, t_list *new)
+t_list	*ft_lstadd_front(t_list **lst, t_list *new)
 {
 	if (lst)
 		new->next = *lst;
@@ -62,8 +62,7 @@ int		get_base_line(char **line, t_list *temp_list, t_list **static_list)
 		}
 		free(temp_list->content);
 		free(temp_list);
-		*static_list = (tmp_static == temp_list) ? NULL : tmp_static;
-		return (0);
+		return (tmp_static == temp_list ? (int)(*static_list = NULL) : 0);
 	}
 	len = (int)(ft_strchr(temp_list->content, '\n') - temp_list->content);
 	*line = ft_substr(temp_list->content, 0, len);
@@ -78,7 +77,6 @@ int		get_next_line(int fd, char **line)
 	static t_list	*list;
 	t_list			*temp_list;
 	char			buff[BUFFER_SIZE + 1];
-	char			*ch;
 	int				count;
 
 	count = 0;
@@ -87,10 +85,10 @@ int		get_next_line(int fd, char **line)
 	if (!list && !(list = new_list(fd)))
 		return (-1);
 	temp_list = check_fd(list, fd);
-	if (!(temp_list) && !(temp_list = ft_lstadd_back(&list, new_list(fd))))
+	if (!(temp_list) && !(temp_list = ft_lstadd_front(&list, new_list(fd))))
 		return (-1);
-	ch = ft_strchr(temp_list->content, '\n');
-	while (!(ch) && (count = read(fd, buff, BUFFER_SIZE)) > 0)
+	while (!(ft_strchr(temp_list->content, '\n')) &&
+			(count = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[count] = '\0';
 		temp_list->content = ft_strjoin(temp_list->content, buff, 1);
