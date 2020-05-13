@@ -62,7 +62,8 @@ int		get_base_line(char **line, t_list *temp_list, t_list **static_list)
 		}
 		free(temp_list->content);
 		free(temp_list);
-		return (tmp_static == temp_list ? (int)(*static_list = NULL) : 0);
+		*static_list = (tmp_static == temp_list) ? NULL : tmp_static;
+		return (0);
 	}
 	len = (int)(ft_strchr(temp_list->content, '\n') - temp_list->content);
 	*line = ft_substr(temp_list->content, 0, len);
