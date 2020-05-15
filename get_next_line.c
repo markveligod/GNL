@@ -65,7 +65,7 @@ int		get_next_line(int fd, char **line)
 {
 	static t_list	*list;
 	t_list			*temp_list;
-	char			buff[BUFFER_SIZE + 1];
+	char			buff[BUFFER_SIZE];
 	int				count;
 
 	count = 0;
